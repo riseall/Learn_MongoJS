@@ -27,12 +27,34 @@ const Movie = mongoose.model("Movie", movieSchema);
 // });
 
 // Melihat data
-Movie.findById("67741c0b4ea062817761dda7")
+// Movie.findById("67741c0b4ea062817761dda7")
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.error("Error fetching data:", error);
+//   });
+
+//Update Data
+// Movie.updateMany({ year: { $lt: 2000 } }, { rating: 7.5 })
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+//Update by ID
+Movie.findByIdAndUpdate(
+  "67741c0b4ea062817761dda8",
+  { rating: 9.5 },
+  { new: true }
+)
   .then((result) => {
     console.log(result);
   })
   .catch((error) => {
-    console.error("Error fetching data:", error);
+    console.log(error);
   });
 
 // Movie.insertMany([
