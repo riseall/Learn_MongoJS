@@ -59,7 +59,22 @@ const productSchema = new mongoose.Schema({
   },
 });
 
+productSchema.methods.outStock = function () {
+  this.stock = 0;
+  this.availability.online = false;
+  this.availability.offline = false;
+  return this.save();
+};
+
 const Product = mongoose.model('Product', productSchema);
+
+const changeStock = async () => {
+  const foundProduct = await Product.findById('67755cecd85df514b22194f3');
+  foundProduct.outStock();
+  console.log('berhasil diubah');
+};
+
+changeStock();
 
 // const product = new Product({
 //   name: "Kemeja Flanel",
@@ -86,28 +101,28 @@ const Product = mongoose.model('Product', productSchema);
 //     console.log(error);
 //   });
 
-Product.findOneAndUpdate(
-  { name: 'Kemeja Flanel' },
-  {
-    name: 'Kemeja Flanel',
-    brand: 'Hollister',
-    price: 750000,
-    color: 'biru muda',
-    size: ['S', 'M', 'L'],
-    description:
-      'Kemeja flanel dengan warna yang cerah, terbuat dari bahan flanel yang nyaman dan berkualitas tinggi.',
-    condition: 'baru',
-    stock: -25,
-    availability: {
-      online: true,
-      offline: true,
-    },
-  },
-  { new: true, runValidators: true },
-)
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.log(error.errors.stock.message);
-  });
+// Product.findOneAndUpdate(
+//   { name: 'Kemeja Flanel' },
+//   {
+//     name: 'Kemeja Flanel',
+//     brand: 'Hollister',
+//     price: 750000,
+//     color: 'biru muda',
+//     size: ['S', 'M', 'L'],
+//     description:
+//       'Kemeja flanel dengan warna yang cerah, terbuat dari bahan flanel yang nyaman dan berkualitas tinggi.',
+//     condition: 'baru',
+//     stock: -25,
+//     availability: {
+//       online: true,
+//       offline: true,
+//     },
+//   },
+//   { new: true, runValidators: true },
+// )
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error.errors.stock.message);
+//   });
