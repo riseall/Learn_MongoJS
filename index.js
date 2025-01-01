@@ -45,11 +45,29 @@ const Movie = mongoose.model("Movie", movieSchema);
 //   });
 
 //Update by ID
-Movie.findByIdAndUpdate(
-  "67741c0b4ea062817761dda8",
-  { rating: 9.5 },
-  { new: true }
-)
+// Movie.findByIdAndUpdate(
+//   "67741c0b4ea062817761dda8",
+//   { rating: 9.5 },
+//   { new: true }
+// )
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+//Delete Data
+// Movie.deleteOne({ title: "The Shawshank Redemption" })
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+//Delete by ID
+Movie.findByIdAndDelete("67741c0b4ea062817761dda6")
   .then((result) => {
     console.log(result);
   })
