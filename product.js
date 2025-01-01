@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 mongoose
-  .connect("mongodb://127.0.0.1:27017/product_db")
+  .connect('mongodb://127.0.0.1:27017/ShopApp')
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log('Connected to MongoDB');
   })
   .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
+    console.error('Error connecting to MongoDB:', error);
   });
 
 const productSchema = new mongoose.Schema({
@@ -39,8 +39,8 @@ const productSchema = new mongoose.Schema({
   },
   condition: {
     type: String,
-    enum: ["baru", "bekas"],
-    default: "baru",
+    enum: ['baru', 'bekas'],
+    default: 'baru',
   },
   stock: {
     type: Number,
@@ -59,4 +59,55 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model('Product', productSchema);
+
+// const product = new Product({
+//   name: "Kemeja Flanel",
+//   brand: "Hollister",
+//   price: 750000,
+//   color: "biru muda",
+//   size: ["S", "M", "L"],
+//   description:
+//     "Kemeja flanel dengan warna yang cerah, terbuat dari bahan flanel yang nyaman dan berkualitas tinggi.",
+//   condition: "baru",
+//   stock: 25,
+//   availability: {
+//     online: true,
+//     offline: true,
+//   },
+// });
+
+// product
+//   .save()
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+Product.findOneAndUpdate(
+  { name: 'Kemeja Flanel' },
+  {
+    name: 'Kemeja Flanel',
+    brand: 'Hollister',
+    price: 750000,
+    color: 'biru muda',
+    size: ['S', 'M', 'L'],
+    description:
+      'Kemeja flanel dengan warna yang cerah, terbuat dari bahan flanel yang nyaman dan berkualitas tinggi.',
+    condition: 'baru',
+    stock: 25,
+    availability: {
+      online: true,
+      offline: true,
+    },
+  },
+  { new: true, runValidators: true },
+)
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
