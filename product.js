@@ -45,7 +45,7 @@ const productSchema = new mongoose.Schema({
   stock: {
     type: Number,
     required: true,
-    min: 0,
+    min: [0, 'Nilai Minimal adalah 0'],
   },
   availability: {
     online: {
@@ -97,7 +97,7 @@ Product.findOneAndUpdate(
     description:
       'Kemeja flanel dengan warna yang cerah, terbuat dari bahan flanel yang nyaman dan berkualitas tinggi.',
     condition: 'baru',
-    stock: 25,
+    stock: -25,
     availability: {
       online: true,
       offline: true,
@@ -109,5 +109,5 @@ Product.findOneAndUpdate(
     console.log(result);
   })
   .catch((error) => {
-    console.log(error);
+    console.log(error.errors.stock.message);
   });
