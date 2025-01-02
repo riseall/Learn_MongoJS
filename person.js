@@ -8,10 +8,14 @@ mongoose
     console.error('Error connecting to MongoDB:', error);
   });
 
-const personSchema = {
+const personSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
-};
+});
+
+personSchema.virtual('fullName').get(function () {
+  return `${this.firstName} ${this.lastName}`;
+});
 
 const Person = mongoose.model('Person', personSchema);
 
@@ -20,4 +24,4 @@ const person = new Person({
   lastName: 'Potter',
 });
 
-console.log(person);
+console.log(person.fullName);
